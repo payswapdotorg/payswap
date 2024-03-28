@@ -58,7 +58,7 @@ export const footerLinks: (t: ContextApi["t"]) => FooterLinkType[] = (t) => [
     items: [
       {
         label: "Github",
-        href: "https://github.com/pectoraux",
+        href: "https://github.com/payswapdotorg",
       },
       // {
       //   label: t("Documentation"),
