@@ -343,6 +343,7 @@ const ReviewStage: React.FC<any> = ({
               variant="subtle"
             >
               <ButtonMenuItem>{t('PayCard')}</ButtonMenuItem>
+              <ButtonMenuItem>{t('Mobile Money')}</ButtonMenuItem>
             </ButtonMenu>
           )}
         </StyledBorderedBox>

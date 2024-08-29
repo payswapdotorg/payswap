@@ -160,6 +160,17 @@ export const getPrices = async (symbols, key, nativePrice) => {
   }
 }
 
+export const paygateBuy = async () => {
+  try {
+    const { data } = await axios.post('/api/paygate')
+    console.log('1data===========================>', data)
+    return data
+  } catch (error) {
+    console.error('0data=============>', error)
+    return null
+  }
+}
+
 export const getExtraPrices = async (symbols, decrypted, nativePrice) => {
   try {
     const prices = await Promise.all(

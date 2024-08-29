@@ -68,6 +68,7 @@ const modalTitles = (t: TranslateFunction) => ({
   [BuyingStage.CONFIRM_ADDRESS_LIMIT]: t('Back'),
   [BuyingStage.CONFIRM_CASHBACK]: t('Back'),
   [BuyingStage.CONFIRM_PAY_WITH_PAYCARD]: t('Back'),
+  [BuyingStage.CONFIRM_PAY_WITH_MOMO]: t('Back'),
   [BuyingStage.CONFIRM_PAYMENT_CREDIT]: t('Back'),
   [BuyingStage.TX_CONFIRMED]: t('Transaction Confirmed'),
 })
@@ -85,6 +86,7 @@ const BuyModal: React.FC<any> = ({
   onDismiss,
 }) => {
   const referrer = useRouter().query.referrer as string
+  const router = useRouter()
   const collectionId = useRouter().query.collectionAddress as string
   const [stage, setStage] = useState(variant === 'paywall' ? BuyingStage.PAYWALL_REVIEW : BuyingStage.REVIEW)
   const [confirmedTxHash, setConfirmedTxHash] = useState('')
@@ -297,6 +299,10 @@ const BuyModal: React.FC<any> = ({
         }
         return callWithGasPrice(helperContract, 'burnForCredit', args).catch((err) =>
           console.log('CONFIRM_PAYMENT_CREDIT================>', err),
+        )
+      } else if (stage === BuyingStage.CONFIRM_PAY_WITH_MOMO) {
+        return router.push(
+          `https://paygateglobal.com/v1/page?token=4df14d0d-506f-4c76-a6b7-990f1603bfce1234&amount=300&description=test&identifier=10`,
         )
       } else if (stage === BuyingStage.CONFIRM_PAY_WITH_PAYCARD) {
         try {
@@ -575,7 +581,13 @@ const BuyModal: React.FC<any> = ({
         setStage(BuyingStage.CONFIRM_STAKE)
         break
       case BuyingStage.REVIEW:
-        setStage(!account ? BuyingStage.CONFIRM_PAY_WITH_PAYCARD : BuyingStage.CONFIRM_REVIEW)
+        setStage(
+          !account
+            ? BuyingStage.CONFIRM_PAY_WITH_PAYCARD
+            : paymentCurrency === 2 && !account
+            ? BuyingStage.CONFIRM_PAY_WITH_MOMO
+            : BuyingStage.CONFIRM_REVIEW,
+        )
         break
       case BuyingStage.PAYWALL_REVIEW:
         setStage(BuyingStage.CONFIRM_PAYWALL_REVIEW)
