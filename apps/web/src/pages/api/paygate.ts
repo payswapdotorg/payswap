@@ -12,6 +12,7 @@ const handler = async (req, res) => {
       description: 'pay',
       identifier: 'trax',
       network: 'FLOOZ',
+      url: 'https://www.payswap.org/cancan/collections/1/Water',
     },
   }
 

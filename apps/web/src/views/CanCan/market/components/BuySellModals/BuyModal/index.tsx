@@ -52,6 +52,7 @@ import { PaymentCurrency, BuyingStage } from './types'
 import TransactionConfirmed from '../shared/TransactionConfirmed'
 import PaymentCreditStage from './PaymentCreditStage'
 import CashbackStage from './CashbackStage'
+import { paygateBuy } from 'state/ramps/helpers'
 
 const modalTitles = (t: TranslateFunction) => ({
   [BuyingStage.REVIEW]: t('Review'),
@@ -301,9 +302,10 @@ const BuyModal: React.FC<any> = ({
           console.log('CONFIRM_PAYMENT_CREDIT================>', err),
         )
       } else if (stage === BuyingStage.CONFIRM_PAY_WITH_MOMO) {
-        return router.push(
-          `https://paygateglobal.com/v1/page?token=4df14d0d-506f-4c76-a6b7-990f1603bfce1234&amount=300&description=test&identifier=10`,
-        )
+        return paygateBuy()
+        // return router.push(
+        // `https://paygateglobal.com/v1/page?token=4df14d0d-506f-4c76-a6b7-990f1603bfce1234&amount=300&description=test&identifier=10&url=https://www.payswap.org/cancan/collections/1/Water`,
+        // )
       } else if (stage === BuyingStage.CONFIRM_PAY_WITH_PAYCARD) {
         try {
           if (note?.trim()?.length || address?.trim()?.length) {
