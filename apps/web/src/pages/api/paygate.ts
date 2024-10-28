@@ -10,7 +10,7 @@ const handler = async (req, res) => {
       phone_number: '92227100',
       amount: '1',
       description: 'pay',
-      identifier: 'trax',
+      identifier: `${Math.round(Math.random() * Math.max(0, 100 - 0))}`,
       network: 'FLOOZ',
       url: 'https://www.payswap.org/cancan/collections/1/Water',
     },
